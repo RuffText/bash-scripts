@@ -1,114 +1,141 @@
-Notes for scripting in bash.
+#!/bin/bash
+# ================================================
+# Improved & Expanded Bash Scripting Notes
+# ================================================
 
-Always put "#!/bin/bash" at the start.
+# Always start your scripts with this:
+#!/bin/bash
 
-Keywords
-	echo - Print to console
-	E.g. echo "Hello" 
+# Make script executable: chmod +x script.sh
 
-	read - Get input from user and store in variable
-	E.g. read variable
+### ====================== Basic Commands ======================
+echo "Hello World"                    # Print text
+echo -e "Line1\nLine2"                # Enable escapes (\n, \t, etc.)
 
-	sleep - Wait for a certain time
-	E.g sleep 1
+read -p "Enter your name: " name      # Get user input
+printf "Name: %s, Age: %d\n" "Alice" 25   # Formatted output
 
-	exit - Stop script
-
-
-Variables
-	Declare variables using "="
-	Can call variable later using $variable
-	E.g. variable="Tommy"
-	
-	Use $ and a integer to use arguments
-	E.g. $1
-	Command: ./script.sh Tommy
-
-	Use $(command) to get the output of a command
-	E.g. $(whoami)
-
-	Built-in variables
-		$RANDOM - Generates random integer between 0 and 32767
-		$SHELL - Displays the current shell
-		$USER - Displays user
-		$PWD - Displays current directory
-		$HOSTNAME - Displays hostname
-
-Arithmetic Operations
-	Use $(()) to do maths.
-	E.g. (( 2 + 2 ))
-
-	Operators
-		+ : Add numbers
-		- : Subtract numbers
-		* : Multiply numbers
-		/ : Divide numbers and show result as whole number
-		% : Remainder of the numbers
-
-Logical Operators
-	Do boolean algebra.
-	E.g 1 == 1 || 2 == 2
-
-	Operators
-
-		&& : and
-			0 0 : 0
-			0 1 : 0
-			1 0 : 0
-			1 1 : 1
-
-		|| : or
-			0 0 : 0
-			0 1 : 1
-			1 0 : 1
-			1 1 : 1
-
-		! : not
-			0 : 1
-			1 : 0
-
-Conditionals
-	Syntax:
-		if [[*condition]]; then
-			something
-		.
-		.
-		elif [[*condition]];
-			something
-		.
-		.
-		else
-			something
-		fi
-	E.g.
-		if [[ $x > 0]]; then
-			echo "Positive"
-		elif [[ $x < 0]]; then
-			echo "Negative"
-		elif [[ $x == 0]]; then
-			echo "Neutral"
-		else
-			echo "Error"
-		fi
+sleep 2                               # Pause for 2 seconds
+exit 0                                # Exit successfully (1 = error)
 
 
-Loops
+### ====================== Variables ======================
+name="Tommy"
+echo "Hello $name"
+echo "Hello ${name}"                  # Safer syntax
 
-While loop:
-	Does an action as while a condition is true.
-	Syntax:
-		while *condition
-		do
-			action
-		done
+# Positional arguments
+echo "Script: $0"
+echo "First arg: $1"
+echo "All args: $@"
+echo "Number of args: $#"
 
-Until loop:
-	Does an action as until a condition is true.
-	Syntax:
-		until *condition
-		do
-			action
-		done
+# Command substitution
+user=$(whoami)
+today=$(date +%Y-%m-%d)
+
+# Built-in variables
+echo "User: $USER"
+echo "Home: $HOME"
+echo "Current dir: $PWD"
+echo "Shell: $SHELL"
+echo "Last command status: $?"
+echo "Random number: $RANDOM"
 
 
-For loop
+### ====================== Arithmetic ======================
+result=$(( 5 + 3 * 2 ))     # 11
+(( counter++ ))             # Increment
+echo $(( 2**4 ))            # Power = 16
+
+
+### ====================== Conditionals ======================
+if [[ $x -gt 0 ]]; then
+    echo "Positive"
+elif [[ $x -lt 0 ]]; then
+    echo "Negative"
+else
+    echo "Zero"
+fi
+
+# File tests
+if [[ -f "file.txt" ]]; then
+    echo "File exists"
+elif [[ -d "mydir" ]]; then
+    echo "Directory exists"
+fi
+
+# String tests
+if [[ -z "$var" ]]; then
+    echo "Variable is empty"
+fi
+
+
+### ====================== Case Statement ======================
+case $option in
+    start|Start) echo "Starting...";;
+    stop)        echo "Stopping...";;
+    restart)     echo "Restarting...";;
+    *)           echo "Unknown option";;
+esac
+
+
+### ====================== Loops ======================
+# For loop - range
+for i in {1..5}; do
+    echo "Iteration $i"
+done
+
+# For loop - list
+for name in Alice Bob Charlie; do
+    echo "Hello $name"
+done
+
+# While loop
+count=1
+while [[ $count -le 5 ]]; do
+    echo "Count: $count"
+    ((count++))
+done
+
+# Until loop
+until [[ $count -gt 5 ]]; do
+    echo "Count: $count"
+    ((count++))
+done
+
+# C-style for loop
+for ((i=0; i<5; i++)); do
+    echo $i
+done
+
+
+### ====================== Functions ======================
+greet() {
+    local name=$1          # Local variable
+    echo "Hello $name!"
+}
+
+greet "World"
+
+
+### ====================== Best Practices ======================
+# At the top of your script:
+set -e          # Exit on error
+set -u          # Treat unset variables as error
+set -o pipefail # Catch errors in pipes
+
+# Always quote variables
+echo "Value: $var"          # Good: "$var"
+
+# Check arguments
+[[ $# -eq 1 ]] || { echo "Usage: $0 <name>"; exit 1; }
+
+
+### ====================== Useful Commands ======================
+# Text processing: grep, awk, sed, cut, sort, uniq, wc
+# Files: ls, mkdir, cp, mv, rm, touch, find
+# Network: curl, wget
+# Others: date, cal, head, tail, cat
+
+EOF
