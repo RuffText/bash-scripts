@@ -50,7 +50,7 @@ Logical Operators
 	E.g 1 == 1 || 2 == 2
 
 	Operators
-	
+
 		&& : and
 			0 0 : 0
 			0 1 : 0
@@ -91,3 +91,24 @@ Conditionals
 			echo "Error"
 		fi
 
+
+Loops
+
+While loop:
+	Does an action as while a condition is true.
+	Syntax:
+		while *condition
+		do
+			action
+		done
+
+Until loop:
+	Does an action as until a condition is true.
+	Syntax:
+		until *condition
+		do
+			action
+		done
+
+
+For loop
