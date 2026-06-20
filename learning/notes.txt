@@ -12,6 +12,8 @@ Keywords
 	sleep - Wait for a certain time
 	E.g sleep 1
 
+	exit - Stop script
+
 
 Variables
 	Declare variables using "="
@@ -43,4 +45,49 @@ Arithmetic Operations
 		/ : Divide numbers and show result as whole number
 		% : Remainder of the numbers
 
- 
+Logical Operators
+	Do boolean algebra.
+	E.g 1 == 1 || 2 == 2
+
+	Operators
+	
+		&& : and
+			0 0 : 0
+			0 1 : 0
+			1 0 : 0
+			1 1 : 1
+
+		|| : or
+			0 0 : 0
+			0 1 : 1
+			1 0 : 1
+			1 1 : 1
+
+		! : not
+			0 : 1
+			1 : 0
+
+Conditionals
+	Syntax:
+		if [[*condition]]; then
+			something
+		.
+		.
+		elif [[*condition]];
+			something
+		.
+		.
+		else
+			something
+		fi
+	E.g.
+		if [[ $x > 0]]; then
+			echo "Positive"
+		elif [[ $x < 0]]; then
+			echo "Negative"
+		elif [[ $x == 0]]; then
+			echo "Neutral"
+		else
+			echo "Error"
+		fi
+
