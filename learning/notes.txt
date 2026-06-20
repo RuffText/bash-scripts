@@ -25,10 +25,22 @@ Variables
 	Use $(command) to get the output of a command
 	E.g. $(whoami)
 
+	Built-in variables
+		$RANDOM - Generates random integer between 0 and 32767
+		$SHELL - Displays the current shell
+		$USER - Displays user
+		$PWD - Displays current directory
+		$HOSTNAME - Displays hostname
 
+Arithmetic Operations
+	Use $(()) to do maths.
+	E.g. (( 2 + 2 ))
 
-
-
-
+	Operators
+		+ : Add numbers
+		- : Subtract numbers
+		* : Multiply numbers
+		/ : Divide numbers and show result as whole number
+		% : Remainder of the numbers
 
  
