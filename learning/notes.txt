@@ -1,0 +1,34 @@
+Notes for scripting in bash.
+
+Always put "#!/bin/bash" at the start.
+
+Keywords
+	echo - Print to console
+	E.g. echo "Hello" 
+
+	read - Get input from user and store in variable
+	E.g. read variable
+
+	sleep - Wait for a certain time
+	E.g sleep 1
+
+
+Variables
+	Declare variables using "="
+	Can call variable later using $variable
+	E.g. variable="Tommy"
+	
+	Use $ and a integer to use arguments
+	E.g. $1
+	Command: ./script.sh Tommy
+
+	Use $(command) to get the output of a command
+	E.g. $(whoami)
+
+
+
+
+
+
+
+ 
